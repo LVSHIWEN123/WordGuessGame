@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      div {
+        /* width: 300px; */
+        font-size: 35px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 40px;
+      }
+
+      button {
+        display: block;
+        width: 200px;
+        height: 50px;
+        margin: 0 auto;
+      }
+
+      span {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        border: 1px solid black;
+        line-height: 50px;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      Rule 1: Animal Name Guess!Please Use the keyboard to play the game.
+    </div>
+    <div>
+      Rule 2: Before you start the game, please REFRESH the page!
+    </div>
+    <div>
+      Rule 3:Open Console when you play the game.
+    </div>
+    <button onclick="wordPop();">Start the Game!</button>
+  </body>
+
+  <script>
+    function GetNumber(max, min) {
+      return Math.round(Math.random() * (max - min) + min);
+    }
+    var bTn = document.getElementsByTagName("button");
+    var wordList = [
+      "butterfly",
+      "bee",
+      "cat",
+      "camel",
+      "cattle",
+      "chicken",
+      "deer",
+      "dog",
+      "donkey",
+      "duck"
+    ];
+    var word;
+    var wordLength;
+    var wordLength_noChange;
+    var wordArr = [];
+    var playCount = 10;
+    var count = 0;
+
+    function wordPop() {
+      count = 0;
+      playCount == 10;
+      word = wordList[GetNumber(9, 0)];
+      wordLength = word.length;
+      wordLength_noChange = wordLength;
+      alert("This word has " + wordLength + " letters");
+      // Define each letter of the word to an array
+      for (let i = 0; i < wordLength; i++) {
+        wordArr[i] = word[i];
+      }
+      console.log(wordArr);
+    }
+    document.onkeyup = function(event) {
+      // alert(wordLength_noChange);
+      console.log(event.key + " has been guessed");
+      if (playCount == 0) {
+        alert("Game Over");
+        playCount = 10;
+        location.reload();
+      }
+      for (let j = 0; j < wordLength; j++) {
+        if (wordArr[j] == event.key) {
+          wordArr.splice(j, 1);
+          wordLength--;
+          console.log(event.key + " is correct ");
+        }
+      }
+      if (wordLength == 0) {
+        alert("You win the Game!Please Restart the game");
+        location.reload();
+      }
+      playCount--;
+      console.log(playCount + " times left!");
+    };
+  </script>
+</html>
